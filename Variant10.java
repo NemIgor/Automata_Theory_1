@@ -1,13 +1,12 @@
 import java.io.IOException;
 
-/** Практическая работа 1, вариант 10. Табличные ДКА и НКА над алфавитом {0, 1}. */
 public final class Variant10 {
     static final int DFA_STATES = 15;
     static final int NFA_STATES = 6;
 
-    // DFA[состояние][символ]: столбец 0 - символ '0', столбец 1 - символ '1'.
+
     static final int[][] DFA = {
-        {1, 2},    // q0  - ничего не прочитано
+        {1, 2},    // q0
         {3, 6},    // q1  - прочитано "0"
         {9, 12},   // q2  - прочитано "1"
         {3, 5},    // q3  - первая пара 00, окончание 00
@@ -28,13 +27,12 @@ public final class Variant10 {
         false, true, false, false, true, false, false
     };
 
-    // NFA[откуда][символ][куда] = наличие перехода.
     static final boolean[][][] NFA = new boolean[NFA_STATES][2][NFA_STATES];
     static final boolean[] NFA_FINAL = {false, true, true, true, true, true};
     static {
         NFA[0][0][0] = true;
         NFA[0][1][0] = true;
-        NFA[0][1][1] = true; // Недетерминированное ветвление по 1.
+        NFA[0][1][1] = true; 
         for (int from = 1; from < 5; from++) {
             NFA[from][0][from + 1] = true;
             NFA[from][1][from + 1] = true;
@@ -117,8 +115,7 @@ public final class Variant10 {
         System.out.println();
     }
 
-    /** Одна строка ввода - одна цепочка, пустая строка - epsilon, EOF - выход.
-     *  Ввод читается посимвольно, методы обработки строк не используются. */
+
     public static void main(String[] args) throws IOException {
         System.out.println("Variant 10 | DFA and NFA | alphabet {0, 1}");
         System.out.println("One input per line. Empty line = epsilon. EOF = exit.");
